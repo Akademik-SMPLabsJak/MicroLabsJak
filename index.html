@@ -1,47 +1,84 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#26346b">
 <title>Menu Berkas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--c:#0e8f8a;--bg:#f1f4fb;--card:#fff;--ink:#1b2140;--mute:#6b7396;--line:#dde2f2}
-@media(prefers-color-scheme:dark){:root{--bg:#141831;--card:#1e2347;--ink:#eef0ff;--mute:#9aa3d1;--line:#2d3463}}
+:root{--c:#26346b;--bg:#f3f5fb;--card:#fff;--ink:#17204a;--mute:#65709a;--line:#dfe4f3;--teal:#19c0c0}
+@media(prefers-color-scheme:dark){:root{--bg:#10142c;--card:#1a2046;--ink:#eef0ff;--mute:#a0a9d6;--line:#2b3362}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-header{background:var(--c);color:#fff;padding:36px 16px 28px}
-.w{max-width:760px;margin:0 auto}
-h1{margin:0;font-size:1.7rem}header p{margin:6px 0 0;opacity:.92}
-main{max-width:760px;margin:0 auto;padding:16px 16px 48px}
-#q{width:100%;padding:12px 14px;font-size:1rem;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);margin-bottom:6px}
-h2{font-size:.95rem;color:var(--mute);margin:22px 0 8px}
-.it{display:flex;align-items:center;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;margin-bottom:8px}
-.it a{flex:1;min-width:0;display:block;padding:13px 14px;color:inherit;text-decoration:none;font-weight:600}
-.it a small{display:block;font-weight:400;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.it:hover{border-color:var(--c)}
-.cp{margin-right:10px;border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer}
-.msg{text-align:center;color:var(--mute);padding:28px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;padding-bottom:env(safe-area-inset-bottom,0)}
+.logo{background:#fff;padding:calc(14px + env(safe-area-inset-top,0)) 16px 14px;border-bottom:3px solid var(--teal);text-align:center}
+.logo img{display:block;margin:0 auto;width:100%;max-width:1080px;height:auto}
+.hero{background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#000));color:#fff;padding:44px 16px 78px}
+.in{max-width:1000px;margin:0 auto}
+.hero h1{margin:0;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.hero p{margin:10px 0 0;max-width:46ch;opacity:.92;font-size:1.05rem}
+.sr{max-width:1000px;margin:-30px auto 0;padding:0 16px}
+#q{width:100%;padding:16px 20px;font:inherit;font-size:1rem;border:0;border-radius:16px;background:var(--card);color:var(--ink);box-shadow:0 10px 30px rgba(20,30,80,.18)}
+#q:focus-visible{outline:3px solid var(--teal)}
+main{max-width:1000px;margin:0 auto;padding:12px 16px 56px}
+.cat{display:flex;align-items:baseline;gap:10px;margin:30px 0 12px}
+.cat h2{margin:0;font-size:1.15rem;font-weight:800}
+.cat span{color:var(--mute);font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.it{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;transition:transform .15s,box-shadow .15s,border-color .15s}
+.it:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(20,30,80,.14);border-color:var(--c)}
+.it a{flex:1;min-width:0;display:flex;align-items:center;gap:14px;padding:14px;color:inherit;text-decoration:none;border-radius:16px}
+.it a:focus-visible,.cp:focus-visible{outline:3px solid var(--teal)}
+.bd{flex:none;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:.72rem;font-weight:800;color:var(--t);background:color-mix(in srgb,var(--t) 14%,transparent)}
+.tx{min-width:0}.tx b{display:block;font-weight:600;line-height:1.3}
+.tx small{display:block;color:var(--mute);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp{flex:none;margin-right:12px;border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:10px;padding:8px 12px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer}
+.cp:hover{color:var(--c);border-color:var(--c)}
+.msg{text-align:center;color:var(--mute);padding:40px 10px}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:0 16px 32px}
+@media(max-width:600px){.hero{padding:30px 16px 66px}.grid{grid-template-columns:1fr}.cp{padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){.it{transition:none}.it:hover{transform:none}html{scroll-behavior:auto}}
 </style></head><body>
-<header><div class="w"><h1 id="jd">Menu Berkas</h1><p id="ds"></p></div></header>
-<main><input id="q" type="search" placeholder="Cari berkas…" autocomplete="off" hidden><div id="ls"><div class="msg">Memuat…</div></div></main>
+<div class="logo"><picture><source media="(max-width:720px)" srcset="logo-mobile.png"><img src="logo-desktop.png" alt="SMP Labschool Jakarta, NELabs, MAJU, Pemuda Juara, Adiwiyata, Cambridge International School"></picture></div>
+<section class="hero"><div class="in"><h1 id="jd">Menu Berkas</h1><p id="ds"></p></div></section>
+<div class="sr"><input id="q" type="search" placeholder="Cari berkas…" autocomplete="off" aria-label="Cari berkas" hidden></div>
+<main><div id="ls"><div class="msg">Memuat…</div></div></main>
+<footer>SMP Labschool Jakarta</footer>
 <script>
 // Ganti dengan alamat Web App Apps Script Anda (hasil Deploy)
-var API='https://script.google.com/macros/s/AKfycbx-432Zj6CftSunVhOWZ7vwiyHXt9HL2xw02ExH-BxSiOOQzPTxIw-i0gbJ_Tbqk6bM/exec';
+var API='https://script.google.com/macros/s/GANTI_DENGAN_ID_DEPLOY/exec';
 var s=new URLSearchParams(location.search).get('s'),D=[],ls=document.getElementById('ls'),q=document.getElementById('q');
 function ringkas(u){try{var x=new URL(u);return x.hostname+(x.pathname.length>1?x.pathname.slice(0,18)+'…':'')}catch(e){return u}}
-function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
+function jenis(u){
+  if(/docs\.google\.com\/document/.test(u))return['Doc','#2a6ee0'];
+  if(/docs\.google\.com\/spreadsheets/.test(u))return['Sheet','#1e9e5a'];
+  if(/docs\.google\.com\/presentation/.test(u))return['Slide','#e59a0c'];
+  if(/docs\.google\.com\/forms|forms\.gle/.test(u))return['Form','#7b4fd1'];
+  if(/drive\.google\.com\/drive\/folders/.test(u))return['Folder','#5f6b8f'];
+  if(/\.pdf|drive\.google\.com\/file/.test(u))return['File','#e04f5f'];
+  return['Link',null];
+}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function msg(t){ls.innerHTML='';ls.appendChild(el('div','msg',t))}
-function theme(w){if(/^#[0-9a-f]{6}$/i.test(w))document.documentElement.style.setProperty('--c',w)}
+function theme(w){if(/^#[0-9a-f]{6}$/i.test(w)){document.documentElement.style.setProperty('--c',w);document.querySelector('meta[name=theme-color]').content=w}}
+function kartu(judul,sub,url,tag,warna,salin){
+  var w=el('div','it'),a=el('a');a.href=url;
+  if(url.charAt(0)!=='?'){a.target='_blank';a.rel='noopener'}
+  var b=el('div','bd',tag);b.style.setProperty('--t',warna||'var(--c)');
+  var t=el('div','tx');t.appendChild(el('b','',judul));t.appendChild(el('small','',sub));
+  a.appendChild(b);a.appendChild(t);w.appendChild(a);
+  if(salin){var k=el('button','cp','Salin');k.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(url).then(function(){k.textContent='Tersalin';setTimeout(function(){k.textContent='Salin'},1200)})};w.appendChild(k)}
+  return w;
+}
 function render(){
   var f=q.value.trim().toLowerCase(),g={},n=0;
   D.forEach(function(d){if(f&&(d.judul+' '+d.kategori).toLowerCase().indexOf(f)<0)return;(g[d.kategori]=g[d.kategori]||[]).push(d);n++});
-  ls.innerHTML='';if(!n)return msg('Tidak ada berkas yang cocok.');
+  ls.innerHTML='';if(!n)return msg(D.length?'Tidak ada berkas yang cocok.':'Belum ada link di microsite ini.');
   Object.keys(g).forEach(function(k){
-    ls.appendChild(el('h2','',k));
-    g[k].forEach(function(d){
-      var w=el('div','it'),a=el('a','',d.judul);a.href=d.url;a.target='_blank';a.rel='noopener';
-      a.appendChild(el('small','',ringkas(d.url)));
-      var b=el('button','cp','Salin');b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(d.url).then(function(){b.textContent='Tersalin';setTimeout(function(){b.textContent='Salin'},1200)})};
-      w.appendChild(a);w.appendChild(b);ls.appendChild(w);
-    });
+    var h=el('div','cat');h.appendChild(el('h2','',k));h.appendChild(el('span','',g[k].length+' berkas'));ls.appendChild(h);
+    var gr=el('div','grid');
+    g[k].forEach(function(d){var j=jenis(d.url);gr.appendChild(kartu(d.judul,ringkas(d.url),d.url,j[0],j[1],true))});
+    ls.appendChild(gr);
   });
 }
 function get(u,cb){fetch(u).then(function(r){return r.json()}).then(cb).catch(function(){msg('Tidak bisa memuat data. Coba muat ulang halaman.')})}
@@ -55,8 +92,10 @@ if(s){
 }else{
   get(API+'?list=1',function(r){
     ls.innerHTML='';if(!r.sites.length)return msg('Belum ada microsite.');
-    document.getElementById('ds').textContent='Pilih kumpulan berkas';
-    r.sites.forEach(function(x){var w=el('div','it'),a=el('a','',x.judul);a.href='?s='+encodeURIComponent(x.slug);w.style.borderLeftColor=/^#[0-9a-f]{6}$/i.test(x.warna)?x.warna:'';a.appendChild(el('small','',x.deskripsi));w.appendChild(a);ls.appendChild(w)});
+    document.getElementById('ds').textContent='Pilih kumpulan berkas yang Anda butuhkan.';
+    var gr=el('div','grid');
+    r.sites.forEach(function(x){gr.appendChild(kartu(x.judul,x.deskripsi||'Buka microsite','?s='+encodeURIComponent(x.slug),(x.judul||'?').charAt(0).toUpperCase(),/^#[0-9a-f]{6}$/i.test(x.warna)?x.warna:null,false))});
+    ls.appendChild(gr);
   });
 }
 </script></body></html>
