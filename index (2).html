@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu Berkas</title>
+<style>
+:root{--c:#0e8f8a;--bg:#f1f4fb;--card:#fff;--ink:#1b2140;--mute:#6b7396;--line:#dde2f2}
+@media(prefers-color-scheme:dark){:root{--bg:#141831;--card:#1e2347;--ink:#eef0ff;--mute:#9aa3d1;--line:#2d3463}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+header{background:var(--c);color:#fff;padding:36px 16px 28px}
+.w{max-width:760px;margin:0 auto}
+h1{margin:0;font-size:1.7rem}header p{margin:6px 0 0;opacity:.92}
+main{max-width:760px;margin:0 auto;padding:16px 16px 48px}
+#q{width:100%;padding:12px 14px;font-size:1rem;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);margin-bottom:6px}
+h2{font-size:.95rem;color:var(--mute);margin:22px 0 8px}
+.it{display:flex;align-items:center;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;margin-bottom:8px}
+.it a{flex:1;min-width:0;display:block;padding:13px 14px;color:inherit;text-decoration:none;font-weight:600}
+.it a small{display:block;font-weight:400;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it:hover{border-color:var(--c)}
+.cp{margin-right:10px;border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer}
+.msg{text-align:center;color:var(--mute);padding:28px}
+</style></head><body>
+<header><div class="w"><h1 id="jd">Menu Berkas</h1><p id="ds"></p></div></header>
+<main><input id="q" type="search" placeholder="Cari berkas…" autocomplete="off" hidden><div id="ls"><div class="msg">Memuat…</div></div></main>
+<script>
+// Ganti dengan alamat Web App Apps Script Anda (hasil Deploy)
+var API='https://script.google.com/macros/s/GANTI_DENGAN_ID_DEPLOY/exec';
+var s=new URLSearchParams(location.search).get('s'),D=[],ls=document.getElementById('ls'),q=document.getElementById('q');
+function ringkas(u){try{var x=new URL(u);return x.hostname+(x.pathname.length>1?x.pathname.slice(0,18)+'…':'')}catch(e){return u}}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
+function msg(t){ls.innerHTML='';ls.appendChild(el('div','msg',t))}
+function theme(w){if(/^#[0-9a-f]{6}$/i.test(w))document.documentElement.style.setProperty('--c',w)}
+function render(){
+  var f=q.value.trim().toLowerCase(),g={},n=0;
+  D.forEach(function(d){if(f&&(d.judul+' '+d.kategori).toLowerCase().indexOf(f)<0)return;(g[d.kategori]=g[d.kategori]||[]).push(d);n++});
+  ls.innerHTML='';if(!n)return msg('Tidak ada berkas yang cocok.');
+  Object.keys(g).forEach(function(k){
+    ls.appendChild(el('h2','',k));
+    g[k].forEach(function(d){
+      var w=el('div','it'),a=el('a','',d.judul);a.href=d.url;a.target='_blank';a.rel='noopener';
+      a.appendChild(el('small','',ringkas(d.url)));
+      var b=el('button','cp','Salin');b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(d.url).then(function(){b.textContent='Tersalin';setTimeout(function(){b.textContent='Salin'},1200)})};
+      w.appendChild(a);w.appendChild(b);ls.appendChild(w);
+    });
+  });
+}
+function get(u,cb){fetch(u).then(function(r){return r.json()}).then(cb).catch(function(){msg('Tidak bisa memuat data. Coba muat ulang halaman.')})}
+if(s){
+  get(API+'?s='+encodeURIComponent(s),function(r){
+    if(!r.ok)return msg('Microsite tidak ditemukan.');
+    document.title=r.site.judul;document.getElementById('jd').textContent=r.site.judul;
+    document.getElementById('ds').textContent=r.site.deskripsi;theme(r.site.warna);
+    D=r.links;q.hidden=false;q.oninput=render;render();
+  });
+}else{
+  get(API+'?list=1',function(r){
+    ls.innerHTML='';if(!r.sites.length)return msg('Belum ada microsite.');
+    document.getElementById('ds').textContent='Pilih kumpulan berkas';
+    r.sites.forEach(function(x){var w=el('div','it'),a=el('a','',x.judul);a.href='?s='+encodeURIComponent(x.slug);w.style.borderLeftColor=/^#[0-9a-f]{6}$/i.test(x.warna)?x.warna:'';a.appendChild(el('small','',x.deskripsi));w.appendChild(a);ls.appendChild(w)});
+  });
+}
+</script></body></html>
