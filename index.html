@@ -15,6 +15,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sa
 .logo img{display:block;margin:0 auto;width:100%;max-width:1080px;height:auto}
 .hero{background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#000));color:#fff;padding:44px 16px 78px}
 .in{max-width:1000px;margin:0 auto}
+.bar{display:none;justify-content:space-between;gap:10px;margin-bottom:22px}.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:9px 18px;font:inherit;font-size:.88rem;font-weight:600;text-decoration:none;cursor:pointer}.pill:hover{background:rgba(255,255,255,.3)}.pill:focus-visible{outline:3px solid var(--teal)}
 .hero h1{margin:0;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
 .hero p{margin:10px 0 0;max-width:46ch;opacity:.92;font-size:1.05rem}
 .sr{max-width:1000px;margin:-30px auto 0;padding:0 16px}
@@ -40,7 +41,7 @@ footer{text-align:center;color:var(--mute);font-size:.8rem;padding:0 16px 32px}
 @media(prefers-reduced-motion:reduce){.it{transition:none}.it:hover{transform:none}html{scroll-behavior:auto}}
 </style></head><body>
 <div class="logo"><picture><source media="(max-width:720px)" srcset="logo-mobile.png"><img src="logo-desktop.png" alt="SMP Labschool Jakarta, NELabs, MAJU, Pemuda Juara, Adiwiyata, Cambridge International School"></picture></div>
-<section class="hero"><div class="in"><h1 id="jd">Menu Berkas</h1><p id="ds"></p></div></section>
+<section class="hero"><div class="in"><div class="bar" id="bar"></div><h1 id="jd">Menu Berkas</h1><p id="ds"></p></div></section>
 <div class="sr"><input id="q" type="search" placeholder="Cari berkas…" autocomplete="off" aria-label="Cari berkas" hidden></div>
 <main><div id="ls"><div class="msg">Memuat…</div></div></main>
 <footer>SMP Labschool Jakarta</footer>
@@ -88,6 +89,11 @@ if(s){
     document.title=r.site.judul;document.getElementById('jd').textContent=r.site.judul;
     document.getElementById('ds').textContent=r.site.deskripsi;theme(r.site.warna);
     D=r.links;q.hidden=false;q.oninput=render;render();
+    var bar=document.getElementById('bar'),h=el('a','pill','← Beranda');h.href=location.pathname;
+    var sh=el('button','pill','Bagikan');sh.onclick=function(){
+      if(navigator.share){navigator.share({title:r.site.judul,url:location.href}).catch(function(){})}
+      else if(navigator.clipboard){navigator.clipboard.writeText(location.href).then(function(){sh.textContent='Alamat tersalin';setTimeout(function(){sh.textContent='Bagikan'},1500)})}};
+    bar.appendChild(h);bar.appendChild(sh);bar.style.display='flex';
   });
 }else{
   get(API+'?list=1',function(r){
